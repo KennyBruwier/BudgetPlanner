@@ -1,0 +1,114 @@
+﻿@model IEnumerable<BudgetPlanner.Models.Ingave>
+
+@{
+    ViewData["Title"] = "Index";
+    Model.OrderByDescending(i => i.Datum);
+    var Total = Model.Sum(i => i.Bedrag);
+    char TotalType;
+    string TotalClass;
+    if (Total < 0)
+    {
+        TotalType = '↓';
+        TotalClass = "alert-danger";
+    }
+    else
+    {
+        TotalType = '↑';
+        TotalClass = "alert-success";
+    }
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Bedrag)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Datum)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Omschrijving)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Bedrijf)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductImage)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model)
+{
+    char ingaveType;
+    string ingaveClass;
+    if (item.Bedrag < 0)
+    {
+        ingaveType = '↓';
+        ingaveClass = "alert-danger";
+    }else
+    {
+        ingaveType = '↑';
+        ingaveClass = "alert-success";
+    }
+        <tr class="@ingaveClass">
+            <td>
+                <span>@ingaveType</span>
+                <span>
+                    @Html.DisplayFor(modelItem => item.Bedrag)
+                </span>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Datum)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Omschrijving)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Bedrijf)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @if (!String.IsNullOrEmpty(item.ProductImage))
+                {
+                    <img src="@item.ProductImage" class="img-thumbnail" />
+                }
+                @*@Html.DisplayFor(modelItem => item.pathImgIdCardVoorkant)*@
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.IngaveId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.IngaveId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.IngaveId">Delete</a>
+            </td>
+        </tr>
+}
+    <tr class="@TotalClass">
+        <td>
+            <strong>
+                <span>@TotalType</span>
+                <span asp-type="">
+                    @Total
+                </span>
+            </strong>
+        </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    </tbody>
+</table>
