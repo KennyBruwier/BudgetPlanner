@@ -197,6 +197,5 @@ namespace BudgetPlanner.Controllers
             if (System.IO.File.Exists(path))
                 System.IO.File.Delete(path);
         }
-
     }
 }

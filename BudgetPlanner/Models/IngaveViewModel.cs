@@ -16,7 +16,7 @@ namespace BudgetPlanner.Models
         {
             new SelectListItem("Betaald","Betaald"),
             new SelectListItem("Niet betaald","Niet Betaald"),
-            new SelectListItem("Dringend te betalen","Dringed te betalen"),
+            new SelectListItem("Dringend te betalen","Dringend te betalen"),
             new SelectListItem("Wachten","Wachten"),
             new SelectListItem("Geen idee","Geen idee")
         };
